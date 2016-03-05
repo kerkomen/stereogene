@@ -3,6 +3,7 @@
 #$Id: gibbslfm.mak 1034 2009-04-17 14:07:27Z favorov $
 #****************************************************************************#
 
+CPP:=g++
 
 exename=StereoGene
 od=./obj
@@ -16,7 +17,7 @@ includeflags = $(foreach dir,$(subst :,$(space),$(srcdirlist)),$(INCLUDEKEY)$(di
 
 OPTIMISE=YES
 
-include ccvars
+# include ccvars
 
 .PHONY: all objs clean
 
@@ -42,10 +43,10 @@ OBJS=$(od)/FourierCorr.o \
 objs:$(OBJS)
 
 $(od)/%.o: %.c
-	$(CC) $(CCFLAGS) $< -o $@
+	$(CC) -c $(CCFLAGS) $< -o $@
 	
 $(od)/%.o: %.cpp
-	$(CPP) $(CPPFLAGS) $< -o $@
+	$(CPP) -c $(CPPFLAGS) $< -o $@
 
 $(exename)$(EXEEXT): $(OBJS)
 	$(CPP) -o $(exename)$(EXEEXT) $(OBJS) $(LINKFLAGS)

@@ -141,7 +141,7 @@ Name_Value* outResTypes[]={
 //===================================================================================================
 Param *pparams[]={
 //================================================== Common parameters
-		new Param("common parameters"),
+		new Param("Common parameters"),
 		new Param("v"		    , &verbose		,1, "verbose"),
 		new Param("verbose"	    , &verbose		,"verbose"),
 		new Param("s"		    , &silent		,1, "no output to stdout"),
@@ -149,7 +149,7 @@ Param *pparams[]={
 
 
 //=============================================================================================================
-		new Param("preparation parameters"),
+		new Param("Preparation parameters"),
 		new Param("step" 	 	, &stepSize  	,"step for input averaging"),
 		new Param("scale" 	 	, &logScale  	,scaleTypes,"use Logarithmic or linear scale"),
 		new Param("scaleFactor"	, &scaleFactor0 ,0),
@@ -157,7 +157,7 @@ Param *pparams[]={
 		new Param("c" 	  	    , &clearProfile , 1,"force  binary profile preparation"),
 
 //=============================================================================================================
-		new Param("paths and files"),
+		new Param("Paths and files"),
 		new Param("cfg" 		, &cfgFile 		,"config file"),
 		new Param("profPath" 	, &profPath 	,"path for binary profiles"),
 		new Param("trackPath" 	, &trackPath 	,"path for tracks"),
@@ -168,7 +168,7 @@ Param *pparams[]={
 		new Param("log" 		, &logFileName	 ,"cumulative log-file"),
 		new Param("aliases" 	, &aliaseFil	,0),
 //=============================================================================================================
-		new Param("input parameters"),
+		new Param("Input parameters"),
 		new Param("chrom"		, &chromFile	,"chromosome file"),
 		new Param("strand" 	 	, &strandFg0  	,"account for strand information"),
 		new Param("intervals"	, &intervFlag0	,intervalTypes,"interval type in BED file"),
@@ -224,7 +224,6 @@ Param *pparams[]={
 		new Param("nPca" 		, &nPca			,0),
 		new Param("cage" 		, &cage			,0),
 
-		new Param("Happy correlations!"),
 		0,
 };
 
@@ -315,10 +314,11 @@ Param * readParam(char *name, char *value){
 //===========================================================================================================
 void Param::printDescr(){
 	if(description==0) return;
-	if(name ==0 || strlen(name)==0) {printf("\n====================== %s ====================== \n",description); return;}
-	printf("-%s ", name);
+	if(name ==0 || strlen(name)==0) {printf("\n%s:\n",description); return;}
+	printf("-%*s", -12, name);
+	printf("\t%s ",description);
 	if(value==PRM_UNKNOWN) {
-		if(type==PRM_INT) 	 printf("<int>");
+		if(type==PRM_INT)    printf("<int>");
 		if(type==PRM_DOUBLE) printf("<float>");
 		if(type==PRM_STRING) printf("<string>");
 		if(type==PRM_FG)     printf("<0|1>");
@@ -331,7 +331,7 @@ void Param::printDescr(){
 		}
 		printf("> ");
 	}
-	printf("\t%s\n",description);
+	printf("\n");
 }
 //============================================ Check if param name exists =============================
 Param *findParam(const char * name){
@@ -344,21 +344,24 @@ Param *findParam(const char * name){
 
 //============================================ Print Help page =========================================
 void printHelp(){
+	const char * progName="StereoGene";
+        const char * execName="stereogene";
 	printf("\n");
-	printf("The StereoGene program compares pairs of tracks and calculates kernel correlations\n");
-	printf("Usage:\n");
-	printf("$ ./StereoGene [-parameters] trackFile_1 trackFile_2 ... trackFile_n\n");
+	printf("%s %s\n",execName,version);
+	printf("The %s program compares pairs of tracks and calculates kernel correlations\n",progName);
 	printf("\n");
+	printf("Usage: ");
+	printf("$ %s [-parameters] <trackFile_1> <trackFile_2> [... <trackFile_n>]\n",execName);
 	for(int i=0; pparams[i]!=0; i++){
-		pparams[i]->printDescr();
-		if(i%15==0 && i>0) {
-			printf("Press q or Esc to exit or any key to go on");
-			fflush(stdout);
-			int c=xpause();
-			if(c=='q' || c=='Q' || c==27) {printf("\n");break;}
-			printf("\r");
-		}
-	}
+	 	pparams[i]->printDescr();
+	// 	if(i%15==0 && i>0) {
+	// 		printf("Press q or Esc to exit or any key to go on");
+	// 		fflush(stdout);
+	// 		int c=xpause();
+	// 		if(c=='q' || c=='Q' || c==27) {printf("\n");break;}
+	// 		printf("\r");
+	// 	}
+	 }
 }
 //============================================ Read Config =========================================
 void readConfig(char * cfg){
@@ -483,6 +486,7 @@ int main(int argc, char **argv) {
 //	clearDeb();
 	debugFg=DEBUG_LOG|DEBUG_PRINT;
 	const char * progName="StereoGene";
+	const char * execName="stereogene";
 	verb("===== %s version %s =====\n",progName,version);
 	char *chrom=getenv("SG_CHROM");
 	if(chrom!=0) chromFile=strdup(chrom);
@@ -492,13 +496,13 @@ int main(int argc, char **argv) {
 
 	if(nfiles==0){
 		printf("\n");
+  		printf("%s %s\n",execName,version);
 		printf("The %s program compares pairs of tracks and calculates kernel correlations\n",progName);
-		printf("===========  version %s ========\n",version);
-		printf("Usage:\n");
-		printf("$ ./%s [-parameters] trackFile_1 trackFile_2 ... trackFile_n\n",progName);
 		printf("\n");
-		printf("Say Stereogene -h for more information\n");
+		printf("Usage: ");
+		printf("$ %s [-parameters] <trackFile_1> <trackFile_2> [... <trackFile_n>]\n",execName);
 		printf("\n");
+		printf("Run `stereogene -h` for more information\n");
 		exit(0);
 	}
 	if(aliaseFil!=0)  alTable.readTable(aliaseFil);		// read aliases

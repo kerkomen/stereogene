@@ -1,5 +1,6 @@
-### Version 1.62.1
+### Version 1.62.2
 1. Changed compilation options. Now compiles on OS X (10.10 Yosemite).
+2. Changed executable filename to lowercase.
 
 ### Version 1.62
 1. Fixed bug with chromosome file -- number of chromosomes can exceed 300.  

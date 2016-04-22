@@ -1,6 +1,6 @@
 # StereoGene
 
-v1.62.1, 5 Mar 2016
+v1.63.1, 22 Apr 2016
 
 StereoGene is a tool for calculating the kerneled correlation between two numeric annotations of the genome. The kernel represents the mutual position of related features. StereoGene allows counting of correlation not only for single features, but also for their combinations.
 

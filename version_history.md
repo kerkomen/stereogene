@@ -1,9 +1,16 @@
+### Version 1.63.1
+1. Changed help formatting
+
+### Version 1.63
+1. List of compilers expanded
+
 ### Version 1.62.2
 1. Changed compilation options. Now compiles on OS X (10.10 Yosemite).
 2. Changed executable filename to lowercase.
 
 ### Version 1.62
 1. Fixed bug with chromosome file -- number of chromosomes can exceed 300.  
+2. Fixed bug on shuffling of sparse profiles 
 
 ### Version 1.61
 1. NA values are used only for WIG tracks; for the BED and other tracks types the program treats NA as 0 always regardless '-na' parameter definition.  
@@ -11,7 +18,7 @@
 3. When an unknown chromosome appears the warning message is written to stderr and to the log file.
 
 ### Version 1.60
-1. Introduced a parameter minShuffle - minimal number of shuffles
+1. Introduced parameter minShuffle - minimal number of shuffles
 2. File statistics and statistics.xml get new parameters nFg = number of observations: nBkg = actual number of shuffles.
 
 ### Version 1.59
@@ -26,7 +33,7 @@
 4. ErrorExit on unknown parameter or incorrect value
 5. new flag -clear. It forces profile recalculation.
 6. flag -h introduced. It shows a help page
-7. lock-unlock for cumulative files (not for windows distributions)
+7. lock-unlock for cumulative files (not for windows)
 8. flag silent introduced. Even if 'verbose' is OFF the main results are printed to stdout. If silent is ON no output expected.
 9. New system of parameters parsing introduced (testing needed!)
 
